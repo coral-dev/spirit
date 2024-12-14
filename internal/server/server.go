@@ -173,10 +173,16 @@ func (s *Server) MountHandlers() {
 	// Register routes
 	s.Router.Get("/config", s.GetConfig)
 
+	// Document routes
 	s.Router.Post("/api/", s.CreateDocument)
 	s.Router.Get("/api/{document}", s.FetchDocument)
 	s.Router.Get("/api/{document}/raw", s.FetchRawDocument)
 
+	// Account routes
+	s.Router.Post("/api/signin", s.SignIn)
+	s.Router.Post("/api/signup", s.SignUp)
+
+	// Static routes
 	s.Router.Post("/", s.StaticCreateDocument)
 	s.Router.Get("/{document}", s.StaticDocument)
 	s.Router.Get("/{document}/raw", s.FetchRawDocument)
