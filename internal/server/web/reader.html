@@ -23,6 +23,7 @@
     <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
     <link rel="stylesheet" type="text/css" href="/static/normalize.css">
     <link rel="stylesheet" type="text/css" href="/static/global.css">
+    <link rel="stylesheet" type="text/css" href="/static/reader.css">
 
     {{.Analytics}}
 
@@ -48,11 +49,11 @@
             </svg>
         </a>
 
-        <a id="reader-mode" href="?reader=true" aria-label="Enable reader mode">
+        <a id="code-mode" href="?reader=false" aria-label="Enable code mode">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
-                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+                <polyline points="16 18 22 12 16 6" />
+                <polyline points="8 6 2 12 8 18" />
             </svg>
         </a>
 
@@ -76,9 +77,22 @@
         </p>
     </header>
 
-    <main>
-        <pre><code>{{.Highlighted}}</code></pre>
+    <main id="reader">
+        <div id="font-button-group">
+            <button id="sans" aria-label="Set font to Sans Serif" onclick="switchFont('sans')">
+                Sans Serif
+            </button>
+            <button id="serif" aria-label="Set font to Serif" onclick="switchFont('serif')" class="active">
+                Serif
+            </button>
+        </div>
+
+        <article class="wysiwyg font-serif">
+            {{.Content}}
+        </article>
     </main>
+
+    <script src="/static/app.js"></script>
 </body>
 
 </html>

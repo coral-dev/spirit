@@ -29,15 +29,26 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
-type CreateRequest struct {
-	Content string
-}
+func ValidateBody[T CreateRequest | SigninRequest | SignupRequest](maxSize int, body T) error {
+	switch v := any(body).(type) {
+	case CreateRequest:
+		return validation.ValidateStruct(&v,
+			validation.Field(&v.Content, validation.Required, validation.Length(2, maxSize)),
+		)
+	case SigninRequest:
+		return validation.ValidateStruct(&v,
+			validation.Field(&v.Username, validation.Required),
+			validation.Field(&v.Password, validation.Required, validation.Length(16, 128)),
+		)
+	case SignupRequest:
+		return validation.ValidateStruct(&v,
+			validation.Field(&v.Username, validation.Required),
+			validation.Field(&v.Password, validation.Required, validation.Length(16, 128)),
+		)
+	default:
+		return validation.Errors{"body": validation.NewError("validation_error", "unsupported request type")}
+	}
 
-func ValidateBody(maxSize int, body CreateRequest) error {
-	return validation.ValidateStruct(&body,
-		validation.Field(&body.Content, validation.Required,
-			validation.Length(2, maxSize)),
-	)
 }
 
 // HandleBody figures out whether a incoming request is in JSON or multipart/form-data and decodes it appropriately

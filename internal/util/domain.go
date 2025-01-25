@@ -28,3 +28,28 @@ type DocumentResponse struct {
 	UpdatedAt int64  `json:"updated_at,omitempty"` // The Unix timestamp of when the document was last modified.
 	Exists    bool   `json:"exists,omitempty"`     // Whether the document does or does not exist.
 }
+
+// Token is an authentication token object
+type Token struct {
+	Version string
+	Public  string
+	Secret  string
+	Salt    string
+}
+
+// CreateRequest represents a POST request to create a document
+type CreateRequest struct {
+	Content string
+}
+
+// SigninRequest represents a POST request to authenticate an account
+type SigninRequest struct {
+	Username string
+	Password string
+}
+
+// SignupRequest represents a POST request to register an account
+type SignupRequest struct {
+	Username string
+	Password string
+}
