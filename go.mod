@@ -6,7 +6,7 @@ toolchain go1.23.3
 
 require (
 	github.com/caarlos0/env/v9 v9.0.0
-	github.com/go-chi/chi/v5 v5.2.0
+	github.com/go-chi/chi/v5 v5.2.1
 	github.com/go-chi/cors v1.2.1
 	github.com/go-chi/httprate v0.14.1
 	github.com/go-ozzo/ozzo-validation/v4 v4.3.0
